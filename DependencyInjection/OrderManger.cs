@@ -10,20 +10,29 @@ namespace DependencyInjection
     }
     public class OrderManger: IOrderManger
     {
+        private readonly IProductStockRepository _productStockRepository;
+        private readonly IPaymentService _paymentService;
+        private readonly IShippingService _shippingService;
+
+        public OrderManger(IProductStockRepository productStockRepository,
+            IPaymentService paymentService,
+            IShippingService shippingService)
+        {
+            _productStockRepository = productStockRepository;
+            _paymentService = paymentService;
+            _shippingService = shippingService;
+        }
         public void Submit(Product product, string creditCardNumber, string expiryDate)
         {
             // check product stock
-            var productStockRepository = new ProductStockRepository();
-            if (!productStockRepository.IsInStock(product))
+            if (!_productStockRepository.IsInStock(product))
                 throw new Exception($"{product} is not in stock");
 
             // payment
-            var paymentService = new PaymentService();
-            paymentService.ChargeCreditCard(creditCardNumber, expiryDate);
+            _paymentService.ChargeCreditCard(creditCardNumber, expiryDate);
 
             //ship the product
-            var shippingService = new ShippingService();
-            shippingService.MailProduct(product);
+            _shippingService.MailProduct(product);
         }
     }
 }

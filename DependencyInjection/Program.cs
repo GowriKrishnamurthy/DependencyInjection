@@ -1,14 +1,18 @@
 ﻿using System;
+using System.ComponentModel.Design;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DependencyInjection
 {
     public static class Program
     {
+        public static readonly IServiceProvider Container = new ContainerBuilder().Build();
+
         public static void Main(string[] args)
         {
-            var product = string.Empty;
-            var orderManger = new OrderManger();
-
+            var product = string.Empty; 
+            var orderManger = Container.GetService<IOrderManger>();
+            
             while (product != "exit")
             {
                 Console.WriteLine(@"Enter product:

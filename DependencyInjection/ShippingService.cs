@@ -10,10 +10,15 @@ namespace DependencyInjection
     }
     public class ShippingService: IShippingService
     {
+        private readonly IProductStockRepository _productStockRepository;
+
+        public ShippingService(IProductStockRepository productStockRepository)
+        {
+            _productStockRepository = productStockRepository;
+        }
         public void MailProduct(Product product)
         {
-            var productStockRepository = new ProductStockRepository();
-            productStockRepository.RemoveStock(product);
+            _productStockRepository.RemoveStock(product);
         }
     }
 }
