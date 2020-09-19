@@ -4,7 +4,11 @@ using System.Text;
 
 namespace DependencyInjection
 {
-    public class ShippingService
+    public interface IShippingService
+    {
+        void MailProduct(Product product);
+    }
+    public class ShippingService: IShippingService
     {
         public void MailProduct(Product product)
         {

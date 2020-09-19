@@ -4,7 +4,11 @@ using System.Text;
 
 namespace DependencyInjection
 {
-    public class OrderManger
+    public interface IOrderManger
+    {
+        void Submit(Product product, string creditCardNumber, string expiryDate);
+    }
+    public class OrderManger: IOrderManger
     {
         public void Submit(Product product, string creditCardNumber, string expiryDate)
         {

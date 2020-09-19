@@ -4,7 +4,11 @@ using System.Text;
 
 namespace DependencyInjection
 {
-    public class PaymentService
+    public interface IPaymentService
+    {
+        void ChargeCreditCard(string creditCardNumber, string expiryDate);
+    }
+    public class PaymentService:IPaymentService
     {
         public void ChargeCreditCard(string creditCardNumber, string expiryDate)
         {

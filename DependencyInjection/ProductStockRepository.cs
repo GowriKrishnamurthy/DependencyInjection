@@ -2,7 +2,13 @@
 
 namespace DependencyInjection
 {
-    public class ProductStockRepository
+    public interface IProductStockRepository
+    {
+        bool IsInStock(Product product);
+        void RemoveStock(Product product);
+        void AddStock(Product product);
+    }
+    public class ProductStockRepository:IProductStockRepository
     {
         private static readonly Dictionary<Product, int> _productStockDatabase = Setup();
 
